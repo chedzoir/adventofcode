@@ -23,11 +23,15 @@ public class Application {
         var runner = (DayRunner) runnerClass.getDeclaredConstructor().newInstance();
 
         if (runner != null) {
-            var part1 = runner.runPart1(inputContent);
-            var part2 = runner.runPart2(inputContent);
 
-            System.out.println("Part 1 : " + part1);
-            System.out.println("Part 2 : " + part2);
+            long start = System.currentTimeMillis();
+            var part1 = runner.runPart1(inputContent);
+            long afterPart1 = System.currentTimeMillis();
+            var part2 = runner.runPart2(inputContent);
+            long afterPart2 = System.currentTimeMillis();
+
+            System.out.println("Part 1 : " + part1 + " (" + (afterPart1 - start) + "ms)");
+            System.out.println("Part 2 : " + part2 + " (" + (afterPart2 -afterPart1) + "ms)");
         }
     }
 }
