@@ -1,6 +1,13 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public record Coordinate(Integer x, Integer y, Integer z) {
+
 
     static Integer addInts(Integer a, Integer b) {
         if (a != null && b != null) {
@@ -41,5 +48,20 @@ public record Coordinate(Integer x, Integer y, Integer z) {
         } else {
             return rotate(new Coordinate(c1.y, -1 * c1.x, 0), degree - 90);
         }
+    }
+
+    public List<Coordinate> hexNeighbours() {
+
+        List<Coordinate> deltas = List.of(
+                new Coordinate(-2, 0, 0),
+                new Coordinate(2, 0, 0),
+                new Coordinate(-1, 1, 0),
+                new Coordinate(-1, -1, 0),
+                new Coordinate(1, 1, 0),
+                new Coordinate(1, -1, 0)
+        );
+
+        return deltas.stream().map(del -> Coordinate.add(this, del))
+                .collect(Collectors.toList());
     }
 }
