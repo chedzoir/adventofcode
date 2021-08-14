@@ -1,8 +1,7 @@
 package adventofcode.year20;
 
-import adventofcode.year20.Day24;
+import adventofcode.utils.coordinate.Coordinate2D;
 import org.junit.jupiter.api.Test;
-import adventofcode.utils.Coordinate;
 
 import java.util.List;
 
@@ -42,8 +41,8 @@ public class Day24Test {
 
     @Test
     public void followPath() {
-        assertThat(new Day24().follow("esew")).isEqualTo(new Coordinate(1, -1, 0));
-        assertThat(new Day24().follow("nwwswee")).isEqualTo(new Coordinate(0, 0, 0));
+        assertThat(new Day24().follow("esew")).isEqualTo(new Coordinate2D(1, -1));
+        assertThat(new Day24().follow("nwwswee")).isEqualTo(new Coordinate2D(0, 0));
     }
 
     @Test

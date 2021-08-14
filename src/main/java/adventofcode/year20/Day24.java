@@ -1,33 +1,33 @@
 package adventofcode.year20;
 
-import adventofcode.utils.Coordinate;
 import adventofcode.utils.DayRunner;
+import adventofcode.utils.coordinate.Coordinate2D;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Day24 implements DayRunner<Integer, Integer> {
 
-    Map<String, Coordinate> deltas = new HashMap<>();
+    Map<String, Coordinate2D> deltas = new HashMap<>();
 
     public Day24() {
-        this.deltas.put("w", new Coordinate(-2, 0, 0));
-        this.deltas.put("e", new Coordinate(2, 0, 0));
-        this.deltas.put("nw", new Coordinate(-1, 1, 0));
-        this.deltas.put("sw", new Coordinate(-1, -1, 0));
-        this.deltas.put("ne", new Coordinate(1, 1, 0));
-        this.deltas.put("se", new Coordinate(1, -1, 0));
+        this.deltas.put("w", new Coordinate2D(-2, 0));
+        this.deltas.put("e", new Coordinate2D(2, 0));
+        this.deltas.put("nw", new Coordinate2D(-1, 1));
+        this.deltas.put("sw", new Coordinate2D(-1, -1));
+        this.deltas.put("ne", new Coordinate2D(1, 1));
+        this.deltas.put("se", new Coordinate2D(1, -1));
     }
 
     @Override
     public Integer runPart1(List<String> input) {
 
-        Set<Coordinate> flippedTiles = getInitialFlippedTiles(input);
+        Set<Coordinate2D> flippedTiles = getInitialFlippedTiles(input);
         return flippedTiles.size();
     }
 
-    public Set<Coordinate> getInitialFlippedTiles(List<String> input) {
-        Set<Coordinate> flippedTiles = new HashSet<>();
+    public Set<Coordinate2D> getInitialFlippedTiles(List<String> input) {
+        Set<Coordinate2D> flippedTiles = new HashSet<>();
 
         for (String path : input) {
             var coord = follow(path);
@@ -48,14 +48,14 @@ public class Day24 implements DayRunner<Integer, Integer> {
 
     }
 
-    public Set<Coordinate> runDay(Set<Coordinate> flippedTiles) {
+    public Set<Coordinate2D> runDay(Set<Coordinate2D> flippedTiles) {
 
         int minX = 0;
         int maxX = 0;
         int minY = 0;
         int maxY = 0;
 
-        for (Coordinate crd : flippedTiles) {
+        for (Coordinate2D crd : flippedTiles) {
             if (minX > crd.x()) {
                 minX = crd.x();
             }
@@ -70,13 +70,13 @@ public class Day24 implements DayRunner<Integer, Integer> {
             }
         }
 
-        Set<Coordinate> coordsToCheck = flippedTiles.stream()
+        Set<Coordinate2D> coordsToCheck = flippedTiles.stream()
                 .flatMap(a -> a.hexNeighbours().stream())
                 .collect(Collectors.toSet());
 
-        Set<Coordinate> newFlipped = new HashSet<>();
+        Set<Coordinate2D> newFlipped = new HashSet<>();
 
-        for (Coordinate c : coordsToCheck) {
+        for (Coordinate2D c : coordsToCheck) {
             var neighbours = c.hexNeighbours();
             var blackNeighbours = neighbours.stream().filter(flippedTiles::contains).count();
             if (flippedTiles.contains(c)) {
@@ -95,12 +95,12 @@ public class Day24 implements DayRunner<Integer, Integer> {
         return newFlipped;
     }
 
-    public Coordinate follow(String path) {
-        Coordinate currentLocation = new Coordinate(0, 0, 0);
+    public Coordinate2D follow(String path) {
+        Coordinate2D currentLocation = new Coordinate2D(0, 0);
         var parsedPath = parseInstruction(path);
 
         for (String dir : parsedPath) {
-            currentLocation = Coordinate.add(currentLocation, deltas.get(dir));
+            currentLocation = currentLocation.add( deltas.get(dir));
         }
         return currentLocation;
     }
@@ -120,7 +120,7 @@ public class Day24 implements DayRunner<Integer, Integer> {
         return res;
     }
 
-    public Set<Coordinate> runDays(Set<Coordinate> tiles, int daysToRun) {
+    public Set<Coordinate2D> runDays(Set<Coordinate2D> tiles, int daysToRun) {
         var currentDay = tiles;
         for (var i=0; i<daysToRun;i++){
             currentDay = runDay(currentDay);

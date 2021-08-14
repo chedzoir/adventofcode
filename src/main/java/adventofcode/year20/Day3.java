@@ -2,19 +2,19 @@ package adventofcode.year20;
 
 import java.util.List;
 
-import adventofcode.utils.Coordinate;
 import adventofcode.utils.DayRunner;
+import adventofcode.utils.coordinate.Coordinate2D;
 
 public class Day3 implements DayRunner<Long, Long> {
     @Override
     public Long runPart1(List<String> input) {
-        var delta = new Coordinate(3, 1, null);
+        var delta = new Coordinate2D(3, 1);
 
         return run(input, delta);
     }
 
-    public Long run(List<String> input, Coordinate delta) {
-        var currentLocation = new Coordinate(0, 0, null);
+    public Long run(List<String> input, Coordinate2D delta) {
+        var currentLocation = new Coordinate2D(0, 0);
 
         long res = 0;
         do {
@@ -23,7 +23,7 @@ public class Day3 implements DayRunner<Long, Long> {
             if (pos == '#') {
                 res++;
             }
-            currentLocation = Coordinate.add(currentLocation, delta);
+            currentLocation = currentLocation.add( delta);
         } while (currentLocation.y() < input.size());
 
         return res;
@@ -33,11 +33,11 @@ public class Day3 implements DayRunner<Long, Long> {
     @Override
     public Long runPart2(List<String> input) {
         var deltas = List.of(
-                new Coordinate(1, 1, null),
-                new Coordinate(3, 1, null),
-                new Coordinate(5, 1, null),
-                new Coordinate(7, 1, null),
-                new Coordinate(1, 2, null)
+                new Coordinate2D(1, 1),
+                new Coordinate2D(3, 1),
+                new Coordinate2D(5, 1),
+                new Coordinate2D(7, 1),
+                new Coordinate2D(1, 2)
         );
 
        return deltas.stream().map(delta -> run(input, delta))

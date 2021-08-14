@@ -1,8 +1,8 @@
 package adventofcode.year20;
 
-import adventofcode.utils.Coordinate;
 import adventofcode.utils.DayRunner;
-import adventofcode.utils.Directions;
+import adventofcode.utils.coordinate.Directions;
+import adventofcode.utils.coordinate.Coordinate2D;
 
 import java.util.List;
 
@@ -11,44 +11,45 @@ public class Day12 implements DayRunner<Integer, Integer> {
     public Integer runPart1(List<String> input) {
 
         var facing = Directions.East;
-        var location = new Coordinate(0, 0, 0);
+        var location = new Coordinate2D(0, 0);
 
         for (var a : input) {
             var inst = a.charAt(0);
             var val = Integer.parseInt(a.substring(1));
 
             switch (inst) {
-                case 'N' -> location = Coordinate.add(location, Coordinate.scalarMult(Directions.North.getDelta(), val));
-                case 'S' -> location = Coordinate.add(location, Coordinate.scalarMult(Directions.South.getDelta(), val));
-                case 'E' -> location = Coordinate.add(location, Coordinate.scalarMult(Directions.East.getDelta(), val));
-                case 'W' -> location = Coordinate.add(location, Coordinate.scalarMult(Directions.West.getDelta(), val));
-                case 'F' -> location = Coordinate.add(location, Coordinate.scalarMult(facing.getDelta(), val));
+                case 'N' -> location = location.add(Directions.North.getDelta().scalarMult(val));
+                case 'S' -> location = location.add(Directions.South.getDelta().scalarMult(val));
+                case 'E' -> location = location.add(Directions.East.getDelta().scalarMult(val));
+                case 'W' -> location = location.add(Directions.West.getDelta().scalarMult(val));
+                case 'F' -> location = location.add(facing.getDelta().scalarMult(val));
                 case 'L' -> facing = Directions.rotate(facing, -1 * val);
                 case 'R' -> facing = Directions.rotate(facing, val);
             }
-        };
-        return Coordinate.manhattenDistance(new Coordinate(0,0,0), location);
+        }
+        ;
+        return location.manhattenDistance(new Coordinate2D(0, 0));
     }
 
     @Override
     public Integer runPart2(List<String> input) {
 
-        var wayPoint = new Coordinate(10, 1,0);
-        var location = new Coordinate(0, 0, 0);
+        var wayPoint = new Coordinate2D(10, 1);
+        var location = new Coordinate2D(0, 0);
 
         for (var a : input) {
             var inst = a.charAt(0);
             var val = Integer.parseInt(a.substring(1));
             switch (inst) {
-                case 'N' -> wayPoint = new Coordinate(wayPoint.x(), wayPoint.y() + val, 0);
-                case 'S' -> wayPoint = new Coordinate(wayPoint.x(), wayPoint.y() - val, 0);
-                case 'E' -> wayPoint = new Coordinate(wayPoint.x() + val, wayPoint.y(), 0);
-                case 'W' -> wayPoint = new Coordinate(wayPoint.x() - val, wayPoint.y(), 0);
-                case 'F' -> location = Coordinate.add(location, Coordinate.scalarMult(wayPoint, val));
-                case 'L' -> wayPoint = Coordinate.rotate(wayPoint, -1 * val);
-                case 'R' -> wayPoint = Coordinate.rotate(wayPoint, val);
+                case 'N' -> wayPoint = new Coordinate2D(wayPoint.x(), wayPoint.y() + val);
+                case 'S' -> wayPoint = new Coordinate2D(wayPoint.x(), wayPoint.y() - val);
+                case 'E' -> wayPoint = new Coordinate2D(wayPoint.x() + val, wayPoint.y());
+                case 'W' -> wayPoint = new Coordinate2D(wayPoint.x() - val, wayPoint.y());
+                case 'F' -> location = location.add(wayPoint.scalarMult(val));
+                case 'L' -> wayPoint = wayPoint.rotate( -1 * val);
+                case 'R' -> wayPoint = wayPoint.rotate( val);
             }
         }
-        return Coordinate.manhattenDistance(new Coordinate(0,0,0), location);
+        return location.manhattenDistance(new Coordinate2D(0, 0));
     }
 }

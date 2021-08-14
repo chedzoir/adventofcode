@@ -1,14 +1,14 @@
-package adventofcode.utils;
+package adventofcode.utils.coordinate;
 
 public enum Directions {
-    North(new Coordinate(0,1,0)),
-    East(new Coordinate(1,0,0)),
-    South(new Coordinate(0,-1,0)),
-    West(new Coordinate(-1,0,0));
+    North(new Coordinate2D(0,1)),
+    East(new Coordinate2D(1,0)),
+    South(new Coordinate2D(0,-1)),
+    West(new Coordinate2D(-1,0));
 
-    private Coordinate directionValue;
+    private Coordinate2D directionValue;
 
-    Directions(Coordinate coordinate) {
+    Directions(Coordinate2D coordinate) {
         this.directionValue = coordinate;
     }
 
@@ -31,7 +31,7 @@ public enum Directions {
         return vals[newIndex];
     }
 
-    public Coordinate getDelta() {
+    public Coordinate2D getDelta() {
         return this.directionValue;
     }
 }
