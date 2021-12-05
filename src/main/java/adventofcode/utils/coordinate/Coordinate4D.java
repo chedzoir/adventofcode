@@ -10,6 +10,12 @@ public record Coordinate4D(Integer x, Integer y, Integer z, Integer w) implement
     }
 
     @Override
+    public Coordinate4D minus(Coordinate4D c2) {
+        return new Coordinate4D(this.x() - c2.x(), this.y() - c2.y(),
+                this.z() - c2.z(), this.w() - c2.w());
+    }
+
+    @Override
     public Integer manhattenDistance(Coordinate4D c2) {
         return Math.abs(this.x() - c2.x()) +
                 Math.abs(this.y() - c2.y()) +
@@ -35,5 +41,10 @@ public record Coordinate4D(Integer x, Integer y, Integer z, Integer w) implement
     @Override
     public List<Coordinate4D> hexNeighbours() {
         throw new RuntimeException("hexNeighbours is not implemented for Coordinate4D");
+    }
+
+    @Override
+    public boolean isMultipleOf(Coordinate4D c2) {
+        return false;
     }
 }

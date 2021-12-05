@@ -21,7 +21,7 @@ public class Maths {
         var result = sortedRemainders.get(0);
         var delta = sortedMods.get(0);
 
-        for (var index = 1; index < sortedMods.size();index++) {
+        for (var index = 1; index < sortedMods.size(); index++) {
             while (result % sortedMods.get(index) != sortedRemainders.get(index)) {
                 result += delta;
             }
@@ -29,5 +29,22 @@ public class Maths {
         }
 
         return result;
+    }
+
+    public static Long gcd(Long val1, Long val2) {
+
+        var a = Math.max(val1, val2);
+        var b = Math.min(val1, val2);
+
+        while (a % b != 0) {
+            var nvl = a % b;
+            a = b;
+            b = nvl;
+        }
+        return b;
+    }
+
+    public static Long lcm(Long val1, Long val2 ) {
+        return val1 * val2 / gcd(val1, val2);
     }
 }

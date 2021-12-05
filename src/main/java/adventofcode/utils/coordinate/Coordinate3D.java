@@ -9,6 +9,11 @@ public record Coordinate3D(Integer x, Integer y, Integer z) implements Coordinat
     }
 
     @Override
+    public Coordinate3D minus(Coordinate3D c2) {
+        return new Coordinate3D(this.x() - c2.x(), this.y() - c2.y(), this.z() - c2.z());
+    }
+
+    @Override
     public Integer manhattenDistance(Coordinate3D c2) {
         return Math.abs(this.x() - c2.x()) + Math.abs(this.y() - c2.y()) + Math.abs(this.z() - c2.z());
     }
@@ -26,5 +31,10 @@ public record Coordinate3D(Integer x, Integer y, Integer z) implements Coordinat
     @Override
     public List<Coordinate3D> hexNeighbours() {
         throw new RuntimeException("hexNeighbours not implemented for Cordinate3D");
+    }
+
+    @Override
+    public boolean isMultipleOf(Coordinate3D c2) {
+        return false;
     }
 }

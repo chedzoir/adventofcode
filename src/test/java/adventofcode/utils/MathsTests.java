@@ -16,5 +16,9 @@ public class MathsTests {
                 .isEqualTo(3417L);
     }
 
+    @Test
+    public void greatestCommonDivisor() {
+        assertThat(Maths.gcd(1071L, 462L)).isEqualTo(7L);
+    }
 
 }

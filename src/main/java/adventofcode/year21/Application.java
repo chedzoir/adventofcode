@@ -1,4 +1,4 @@
-package adventofcode.year20;
+package adventofcode.year21;
 
 import adventofcode.utils.DayRunner;
 
@@ -17,7 +17,7 @@ public class Application {
         var input = args[1];
         var inputContent = Files.lines(Path.of(new File(input).toURI())).collect(Collectors.toList());
 
-        var className = "adventofcode2020.Day" + day;
+        var className = "adventofcode.year21.Day" + day;
 
         var runnerClass = Class.forName(className);
 
