@@ -1,12 +1,10 @@
 package adventofcode.year21;
 
-import adventofcode.year19.opcode.InputProvider;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 
 public class Day4Test {
 
